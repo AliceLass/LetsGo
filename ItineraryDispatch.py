@@ -22,7 +22,7 @@ class ItineraryAutolib:
 		Walking1=self.WalkToStation.duration
 		Walking1=Walking1//60
 		Walking2=self.WalkToArrival.duration
-		Walking2=Walking1//60
+		Walking2=Walking2//60
 		DriveDuration=self.Driving.duration
 		DriveDuration=DriveDuration//60
 		return[Walking1,DriveDuration,Walking2]
@@ -46,7 +46,7 @@ class ItineraryVelib:
 		Walking1=self.WalkToStation.duration
 		Walking1=Walking1//60
 		Walking2=self.WalkToArrival.duration
-		Walking2=Walking1//60
+		Walking2=Walking2//60
 		BikeDuration=self.Drive.duration
 		BikeDuration=DriveDuration//60
 		return[Walking1,BikeDuration,Walking2]
