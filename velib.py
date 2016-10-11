@@ -5,6 +5,8 @@ import requests
 import json
 import pprint
 from lxml import etree
+from geopy.distance import vincenty
+
 
 
 
@@ -12,7 +14,7 @@ from lxml import etree
 #Créer l'URL avec les coordonnées GPS long,lat et une distance d
 def _url(point):
     d=500
-    chaine='http://opendata.paris.fr/api/records/1.0/search/?dataset=stations-velib-disponibilites-en-temps-reel&facet=banking&facet=bonus&facet=status&facet=contract_name&geofilter.distance='+str(point.longitude)+'%2C+'+str(point.latitude)+'%2C'+str(d)
+    chaine='http://opendata.paris.fr/api/records/1.0/search/?dataset=stations-velib-disponibilites-en-temps-reel&facet=banking&facet=bonus&facet=status&facet=contract_name&geofilter.distance='+str(point.latitude)+'%2C+'+str(point.longitude)+'%2C'+str(d)
 
     return chaine
 
@@ -27,9 +29,10 @@ def velib(point):
     station_min = []
 
     for i in range(0, int(velib_json['nhits'])):
-        if int(velib_json['records'][i]['fields']['dist']) < dmin:
-            dmin = int(velib_json['records'][i]['fields']['dist'])
-            station_min = velib_json['records'][i]['fields']['xy']
+        if vincenty(velib_json['records'][i]['fields']['position'],point.printcoordinates()).meters < dmin:
+            dmin = vincenty(velib_json['records'][i]['fields']['position'],point.printcoordinates()).meters
+            station_min = velib_json['records'][i]['fields']['position']
+
         else:
             i += 1
     return station_min
