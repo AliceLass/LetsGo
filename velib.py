@@ -7,30 +7,34 @@ import requests
 import json
 import pprint
 from lxml import etree
+from geopy.distance import vincenty
 
-#Rayon du périmètre maximal dans lequel on recherche
-d=500
+
+
+
 
 #Créer l'URL avec les coordonnées GPS long,lat et une distance d
-def _url(point,d):
-    chaine='http://opendata.paris.fr/api/records/1.0/search/?dataset=stations-velib-disponibilites-en-temps-reel&facet=banking&facet=bonus&facet=status&facet=contract_name&geofilter.distance='+str(point.longitude)+'%2C+'+str(point.latitude)+'%2C'+str(d)
+def _url(point):
+    d=500
+    chaine='http://opendata.paris.fr/api/records/1.0/search/?dataset=stations-velib-disponibilites-en-temps-reel&facet=banking&facet=bonus&facet=status&facet=contract_name&geofilter.distance='+str(point.latitude)+'%2C+'+str(point.longitude)+'%2C'+str(d)
 
     return chaine
 
 #Retourne le JSON avec les stations autolib correspondant à URL
-def get_velib(point,d):
-    return requests.get(_url(point,d))
+def get_velib(point):
+    return requests.get(_url(point))
 
 #Va chercher la station la plus proche et ses coordonnées dans le JSON
-def velib(point,d):
-    velib_json=get_velib(point,d).json()
-    dmin = int(d)
+def velib(point):
+    velib_json=get_velib(point).json()
+    dmin = 500
     station_min = []
 
     for i in range(0, int(velib_json['nhits'])):
-        if int(velib_json['records'][i]['fields']['dist']) < dmin:
-            dmin = int(velib_json['records'][i]['fields']['dist'])
-            station_min = velib_json['records'][i]['fields']['xy']
+        if vincenty(velib_json['records'][i]['fields']['position'],point.printcoordinates()).meters < dmin:
+            dmin = vincenty(velib_json['records'][i]['fields']['position'],point.printcoordinates()).meters
+            station_min = velib_json['records'][i]['fields']['position']
+
         else:
             i += 1
     return station_min
