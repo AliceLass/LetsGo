@@ -1,3 +1,5 @@
+# -*-coding:Utf-8 -*
+
 import Itinerary
 import velib
 import autolib
