@@ -1,3 +1,5 @@
+# -*-coding:Utf-8 -*
+
 """Module permettant de trouver la station autolib la plus proche en prenant en entrée un pointde la classe Point"""
 
 import Point
