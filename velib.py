@@ -2,9 +2,6 @@
 
 import Point
 import requests
-import json
-import pprint
-from lxml import etree
 from geopy.distance import vincenty
 
 

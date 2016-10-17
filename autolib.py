@@ -2,9 +2,7 @@
 
 import Point
 import requests
-import json
-import pprint
-from lxml import etree
+
 
 
 #Créer l'URL avec les coordonnées GPS long,lat et une distance d

@@ -1,5 +1,4 @@
-import os
-os.chdir("D:/Documents/Centrale/3A/OSY/PA/LetsGo")
+
 
 import autolib
 import velib
@@ -17,5 +16,6 @@ print(depart.latitude,depart.longitude)
 
 print(velib.velib(depart))
 print(autolib.autolib(depart))
+
 
 
