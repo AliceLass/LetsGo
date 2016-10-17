@@ -1,3 +1,5 @@
+# -*-coding:Utf-8 -*
+
 import geopy
 from geopy.geocoders import Nominatim
 

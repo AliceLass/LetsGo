@@ -1,5 +1,3 @@
-
-
 import autolib
 import velib
 import Itinerary
@@ -16,6 +14,3 @@ print(depart.latitude,depart.longitude)
 
 print(velib.velib(depart))
 print(autolib.autolib(depart))
-
-
-
