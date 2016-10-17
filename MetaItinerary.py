@@ -122,6 +122,12 @@ class MetaItinerary:
 
     # Methodes de la classe MetaItinerary qui renvoient la différence de durée totale entre deux moyens de transports
 
+    def diff_durationAT(self):
+        return self.autolib_duration - self.transit_duration
+
+    def diff_durationTA(self):
+        return self.transit_duration - self.autolib_duration
+
     def diff_durationVA(self):
         return self.velib_duration - self.autolib_duration
 
@@ -134,13 +140,14 @@ class MetaItinerary:
     def diff_durationWT(self):
         return self.walking_duration - self.transit_duration
 
-    def diff_durationAT(self):
-        return self.autolib_duration - self.transit_duration
-
-
-
 
     # Methodes de la classe MetaItinerary qui renvoient le taux de rallongement de la durée du trajet en choisissant I par rapport à J
+
+    def tauxdiff_durationAT(self):
+        return self.diff_durationAT() / self.transit_duration
+
+    def tauxdiff_durationTA(self):
+        return self.diff_durationTA() / self.autolib_duration
 
     def tauxdiff_durationVA(self):
         return self.diff_durationVA() / self.autolib_duration
