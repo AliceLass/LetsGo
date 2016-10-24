@@ -2,13 +2,7 @@
 
 """Module permettant de trouver la station autolib la plus proche en prenant en entrée un pointde la classe Point"""
 
-import Point
 import requests
-from geopy.distance import vincenty
-
-
-
-
 
 #Créer l'URL avec les coordonnées GPS long,lat et une distance d
 def _url(point):
@@ -26,12 +20,12 @@ def velib(point):
     velib_json=get_velib(point).json()
     dmin = 500
     station_min = []
+    adress_station_min=""
 
-    for i in range(0, int(velib_json['nhits'])):
-        if vincenty(velib_json['records'][i]['fields']['position'],point.printcoordinates()).meters < dmin:
-            dmin = vincenty(velib_json['records'][i]['fields']['position'],point.printcoordinates()).meters
-            station_min = velib_json['records'][i]['fields']['position']
+    for i in velib_json['records']:
+        if int(i['fields']['dist']) < dmin:
+            dmin = int(i['fields']['dist'])
+            station_min = i['fields']['position']
+            adress_station_min = i['fields']['address']
 
-        else:
-            i += 1
-    return station_min
+    return (station_min,adress_station_min)

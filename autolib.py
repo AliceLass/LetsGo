@@ -2,10 +2,7 @@
 
 """Module permettant de trouver la station autolib la plus proche en prenant en entrée un pointde la classe Point"""
 
-import Point
 import requests
-
-
 
 #Créer l'URL avec les coordonnées GPS long,lat et une distance d
 def _url(point):
@@ -23,11 +20,9 @@ def autolib(point):
     station_min = []
     adresse_station_min=""
 
-    for i in range(0, int(autolib_json['nhits'])):
-        if int(autolib_json['records'][i]['fields']['dist']) < dmin:
-            dmin = int(autolib_json['records'][i]['fields']['dist'])
-            station_min = autolib_json['records'][i]['fields']['xy']
-            adresse_station_min = autolib_json['records'][i]['fields']['adresse']
-        else:
-            i += 1
+    for i in autolib_json['records']:
+        if int(i['fields']['dist']) < dmin:
+            dmin = int(i['fields']['dist'])
+            station_min = i['fields']['xy']
+            adresse_station_min = i['fields']['adresse']
     return (station_min,adresse_station_min)

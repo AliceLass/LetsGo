@@ -3,6 +3,7 @@
 import ItineraryDispatch
 import Exemple
 
+
 class MetaItinerary:
 
     def __init__(self, origin, arrival):
@@ -20,94 +21,96 @@ class MetaItinerary:
         self.autolib_walkingduration = self.autolibitinerary.walking_duration
         self.transit_duration = self.transititinerary.duration
         self.transit_walkingduration = self.transititinerary.walking_duration
-
-
     # Methodes de la classe MetaItinerary qui renvoient la durée totale minimum entre différents moyens de transport
 
     def min_durationAT(self):
         # Méthode qui renvoie le durée totale minimum entre l'Autolib et le Transit
         result=[]
         if min(self.autolib_duration, self.transit_duration)==self.autolib_duration:
-            result[0]="autolib"
-        result[1]=min(self.autolib_duration, self.transit_duration)
+            result.append("autolib")
+        else:
+            result.append("transit")
+        result.append(min(self.autolib_duration, self.transit_duration))
         return result
 
     def min_durationATV(self):
         # Méthode qui renvoie le durée totale minimum entre l'Autolib, le Transit et le Velib
         result = []
         if min(self.autolib_duration, self.transit_duration, self.velib_duration) == self.autolib_duration:
-            result[0] = "autolib"
+            result.append("autolib")
         elif min(self.autolib_duration, self.transit_duration, self.velib_duration) == self.transit_duration:
-            result[0] = "transit"
+            result.append("transit")
         else :
-            result[0] = "velib"
-        result[1] = min(self.autolib_duration, self.transit_duration, self.velib_duration)
+            result.append("velib")
+        result.append(min(self.autolib_duration, self.transit_duration, self.velib_duration))
         return result
 
     def min_durationATVW(self):
         # Méthode qui renvoie le durée totale minimum entre les quatre moyens de transport
         result = []
         if min(self.autolib_duration, self.transit_duration, self.velib_duration, self.walking_duration) == self.autolib_duration:
-            result[0] = "autolib"
+            result.append("autolib")
         elif min(self.autolib_duration, self.transit_duration, self.velib_duration, self.walking_duration) == self.transit_duration:
-            result[0] = "transit"
+            result.append("transit")
         elif min(self.autolib_duration, self.transit_duration, self.velib_duration, self.walking_duration) == self.velib_duration:
-            result[0] = "velib"
+            result.append("velib")
         else:
-            result[0] = "walking"
-        result[1] = min(self.autolib_duration, self.transit_duration, self.velib_duration, self.walking_duration)
+            result.append("walking")
+        result.append(min(self.autolib_duration, self.transit_duration, self.velib_duration, self.walking_duration))
         return result
 
     def min_durationATW(self):
         # Méthode qui renvoie le durée totale minimum entre l'Autolib, le Transit et le Walking
         result = []
         if min(self.autolib_duration, self.transit_duration, self.walking_duration) == self.autolib_duration:
-            result[0] = "autolib"
+            result.append("autolib")
         elif min(self.autolib_duration, self.transit_duration, self.walking_duration) == self.transit_duration:
-            result[0] = "transit"
+            result.append("transit")
         else:
-            result[0] = "walking"
-        result[1] = min(self.autolib_duration, self.transit_duration, self.walking_duration)
+            result.append("walking")
+        result.append(min(self.autolib_duration, self.transit_duration, self.walking_duration))
         return result
 
     def min_durationTV(self):
         # Méthode qui renvoie le durée totale minimum entre le Transit et le Velib
         result = []
         if min(self.transit_duration, self.velib_duration) == self.transit_duration:
-            result[0] = "transit"
+            result.append("transit")
         else:
-            result[0] = "velib"
-        result[1] = min(self.transit_duration, self.velib_duration)
+            result.append("velib")
+        result.append(min(self.transit_duration, self.velib_duration))
         return result
 
     def min_durationTW(self):
         # Méthode qui renvoie le durée totale minimum entre le Transit et le Walking
         result = []
         if min(self.transit_duration, self.walking_duration) == self.transit_duration:
-            result[0] = "transit"
+            result.append("transit")
         else:
-            result[0] = "walking"
-        result[1] = min(self.transit_duration, self.walking_duration)
+            result.append("walking")
+        result.append(min(self.transit_duration, self.walking_duration))
         return result
 
     def min_durationTVW(self):
         # Méthode qui renvoie le durée totale minimum entre le Transit, le Velib et le Walking
+        result = []
         if min(self.transit_duration, self.velib_duration, self.walking_duration) == self.transit_duration:
-            result[0] = "transit"
+            result.append("transit")
         elif min(self.transit_duration, self.velib_duration, self.walking_duration) == self.velib_duration:
-            result[0] = "velib"
+            result.append("velib")
         else:
-            result[0] = "walking"
-        result[1] = min(self.transit_duration, self.velib_duration, self.walking_duration)
+            result.append("walking")
+        result.append(min(self.transit_duration, self.velib_duration, self.walking_duration))
         return result
 
     def min_durationVW(self):
         # Méthode qui renvoie le durée totale minimum entre le Velib et le Walking
+        result = []
         if min(self.velib_duration, self.walking_duration) == self.velib_duration:
-            result[0] = "velib"
+            result.append("velib")
         else:
-            result[0] = "walking"
-        result[1] = min(self.velib_duration, self.walking_duration)
+            result.append("walking")
+        result.append(min(self.velib_duration, self.walking_duration))
         return result
 
 

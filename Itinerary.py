@@ -17,6 +17,6 @@ class Itinerary:
 			print("La requete a echoué")
 		else :		
 			self.itinerary=r.json()
-			self.duration=self.itinerary["routes"][0]["legs"][0]["duration"]
+			self.duration=int(self.itinerary["routes"][0]["legs"][0]["duration"]["value"])
 	
 
