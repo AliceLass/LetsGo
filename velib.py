@@ -13,7 +13,7 @@ from geopy.distance import vincenty
 
 
 
-#Créer l'URL avec les coordonnées GPS long,lat et une distance d
+#On crée l'URL avec les coordonnées GPS long,lat et une distance d
 def _url(point):
     d=500
     chaine='http://opendata.paris.fr/api/records/1.0/search/?dataset=stations-velib-disponibilites-en-temps-reel&facet=banking&facet=bonus&facet=status&facet=contract_name&geofilter.distance='+str(point.latitude)+'%2C+'+str(point.longitude)+'%2C'+str(d)
@@ -34,7 +34,5 @@ def velib(point):
         if vincenty(velib_json['records'][i]['fields']['position'],point.printcoordinates()).meters < dmin:
             dmin = vincenty(velib_json['records'][i]['fields']['position'],point.printcoordinates()).meters
             station_min = velib_json['records'][i]['fields']['position']
-
-        else:
-            i += 1
+        i += 1
     return station_min
