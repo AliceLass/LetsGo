@@ -1,19 +1,24 @@
 # -*-coding:Utf-8 -*
 
-import Chargement
 import MetaItinerary
 import Meteo
-# Import le fichier avec les réponses en fonction du trajet type reponse_autolib
-# Import orignin et arrival
-# import fichier + ou - que 4
+import Reponse
 
+def arbre_moins4(origin, arrival, chargement):
+    ''' Fonction d'arbre de decision si il y a moins de 4 passagers '''
 
-meta=MetaItinerary.MetaItinerary(origin, arrival)
-meteo=Meteo.meteo()[1]
-temperature=Meteo.meteo()[0]
+    # Infos sur les passagers
+    meta = MetaItinerary.MetaItinerary(origin, arrival)
 
-def main():
-    if Chargement.chargement()== "beaucoup":
+    # Infos depuis API
+    meteo = Meteo.meteo()[1]
+    temperature = Meteo.meteo()[0]
+    reponse_transit = Reponse.reponse_transit()
+    reponse_walking = Reponse.reponse_walking()
+    reponse_velib = Reponse.reponse_velib()
+    reponse_autolib = Reponse.reponse_autolib()
+
+    if chargement== "beaucoup":
         return reponse_autolib
     else :
         if meteo == "pluie":
@@ -41,7 +46,7 @@ def main():
                         return reponse_transit
             else:
                 if meteo == "soleil" and temperature > 15 :
-                    if Chargement.chargement()=="un peu":
+                    if chargement=="un peu":
                         if meta.min_durationATW()[0]=="walking":
                             return reponse_walking
                         elif meta.min_durationATW()[0]=="autolib":
@@ -82,7 +87,7 @@ def main():
                                 else:
                                     return reponse_autolib
                 else:
-                    if Chargement.chargement()=="un peu":
+                    if chargement=="un peu":
                         if meta.walking_duration > 1500:
                             if meta.min_durationAT()[0] == "autolib":
                                 return reponse_autolib

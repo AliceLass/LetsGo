@@ -1,7 +1,6 @@
 # -*-coding:Utf-8 -*
 
 import ItineraryDispatch
-import Exemple
 
 class MetaItinerary:
 
@@ -161,6 +160,5 @@ class MetaItinerary:
     def tauxdiff_durationWT(self):
         return self.diff_durationWT() / self.transit_duration
 
-testMetaItinerary = MetaItinerary(Exemple.OriginExemple, Exemple.ArrivalExemple)
-print(testMetaItinerary.tauxdiff_durationWA())
+
 
