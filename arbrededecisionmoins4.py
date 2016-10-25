@@ -4,7 +4,7 @@ import MetaItinerary
 import Meteo
 import Reponse
 
-def arbre_moins4(origin, arrival, chargement):
+def arbremoins4(origin, arrival, chargement):
     ''' Fonction d'arbre de decision si il y a moins de 4 passagers '''
 
     # Infos sur les passagers
