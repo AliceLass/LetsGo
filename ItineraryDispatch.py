@@ -5,8 +5,10 @@ import velib
 import autolib
 import Point
 
+#L'objectif est de creer des class séparées pour chaque type d'itineraire.
 
 class ItineraryAutolib:
+    #Dispatch des itineraires des etapes pour l'autolib.
     def __init__(self, Origin, Arrival):
         # On definit les points intermediaires
         self.Origin=Origin
@@ -34,6 +36,7 @@ class ItineraryAutolib:
 
 
 class ItineraryVelib:
+    # Dispatch des itineraires des etapes pour le velib.
     def __init__(self, Origin, Arrival):
         # On definit les points intermediaires
         self.Origin = Origin
@@ -61,6 +64,7 @@ class ItineraryVelib:
 
 
 class ItineraryWalk:
+    # Itineraire simple pour la marche.
     def __init__(self, Origin, Arrival):
         self.Origin = Origin
         self.Arrival = Arrival
@@ -79,12 +83,11 @@ class ItineraryTransit:
     def __init__(self, Origin, Arrival):
         self.Origin = Origin
         self.Arrival = Arrival
-        self.Transit = Itinerary.Itinerary(Origin, Arrival, 'transit')
-        steps = self.Transit.itinerary["routes"][0]["legs"][0]["steps"]
+        self.steps = Itinerary.Itinerary(Origin, Arrival, 'transit').itinerary["routes"][0]["legs"][0]["steps"]
         self.walking_duration = 0
         self.transit_duration = 0
         self.nb_liaisons = -1
-        for i in steps:
+        for i in self.steps:
             if i["travel_mode"] == "WALKING":
                 self.walking_duration += int(i["duration"]["value"])
             elif i["travel_mode"] == "TRANSIT":
@@ -95,3 +98,17 @@ class ItineraryTransit:
     def DispatchDuration(self):
         # envoie le dispatch des temps de transit sous forme d'une liste.
         return ([self.walking_duration // 60, self.transit_duration // 60])
+
+    def ItinerarySteps(self):
+        #Construire une liste de dictionnaire avec les informations de chaques etapes du transport
+        steps = []
+        for i in self.steps:
+            if i['travel_mode'] == "TRANSIT":
+                step = {}
+                step['departure_stop'] = i['transit_details']['departure_stop']['name']
+                step['line'] = i['transit_details']['line']['short_name']
+                step['direction'] = i['transit_details']['headsign']
+                step['type'] = i['transit_details']['line']['vehicle']['name']
+                step['arrival_stop'] = i['transit_details']['arrival_stop']['name']
+                steps.append(step)
+        return steps

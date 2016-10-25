@@ -15,7 +15,8 @@ class Point:
 		self.coordinates=""
 		
 	def FromAddress(self,address):
-	#prend en entrée une adresse au format ## rue Ville
+	#prend en entrée une adresse au format ## rue Ville.
+	#Methode de classe permettant d'allimenter un point avec une adresse en entrée
 		geolocator=Nominatim()
 		self.location=geolocator.geocode(str(address))
 		self.address=self.location.address
@@ -25,7 +26,9 @@ class Point:
 		
 	def FromCoord(self,coord):
 	#prend en entrée une liste de coordonée au format [x,y]"
-		geolocator=Nominatim()
+    # Methode de classe permettant d'allimenter un point avec des coordonées en entrée
+
+    geolocator=Nominatim()
 		self.location=geolocator.reverse(str(coord).strip('[]'))
 		self.address=self.location.address
 		self.latitude=self.location.latitude

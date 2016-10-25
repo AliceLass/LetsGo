@@ -6,6 +6,7 @@ import Point
 API_gglekey="AIzaSyBsakgF5UCvejwmCE0t5y0pFCdk7AACIy8"
 
 class Itinerary:
+	#Classe destinée a stocker un itineraire appelé sur l'API google maps.
 	#mode doit prendre une valeur dans walking, driving, bicycling, transit.
 	def __init__(self,Origin,Arrival,mode):
 		OrCoord=Origin.coordinates
